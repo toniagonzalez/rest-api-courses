@@ -1,0 +1,20 @@
+{
+  "development": {
+    "storage": "./fsjstd-restapi.db",
+    "dialect": "sqlite",
+    "sync": {
+      "force": true
+    },
+    "define": {
+      "timestamps": true
+    }
+  },
+  "test": {
+    "storage": "./fsjstd-restapi.db",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "storage": "./fsjstd-restapi.db",
+    "dialect": "sqlite"
+  }
+}
