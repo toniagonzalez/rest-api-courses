@@ -19,6 +19,10 @@ router.get('/', async (req, res) =>{
     res.json({message: 'Welcome to the REST API Courses!'});
 });
 
+
+router.get('/users', async (req, res)=>{
+    res.json();
+})
 //GET Currently Authenticated User
 
 //GET list of courses

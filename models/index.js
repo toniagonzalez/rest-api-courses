@@ -49,8 +49,6 @@ Object.keys(models).forEach(modelName => {
   }
 });
 
-
-
 module.exports = {
   sequelize,
   Sequelize,
