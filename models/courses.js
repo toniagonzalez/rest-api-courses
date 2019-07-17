@@ -7,20 +7,25 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: -1
+        },
         title: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         description: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: false
         },
         estimatedTime: {
             type: DataTypes.STRING,
         },
         materialsNeeded: {
             type: DataTypes.STRING,
-        },
+        }
     });
 
     Course.associate = (models) => {
