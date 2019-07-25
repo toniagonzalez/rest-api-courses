@@ -1,3 +1,20 @@
 # rest-api-courses
 
-I constructed a REST API using Express that allows users to administer a school database containing information about courses. Users are authenticated and can interact with the database by retrieving a list of courses, as well as adding, updating and deleting courses in the database.
+I constructed a REST API that allows intstructors to access a courses database. Users are authenticated and validation is provided for course creation, editing, and deletion. This project was built using Express, a SQLite database and the Sequelize ORM as well as the Postman API development environment.
+
+Use Postman to view the routes and use the user authentication [Postman]]https://www.getpostman.com/ 
+To install dependencies use the package manager [npm]https://www.npmjs.com/:
+
+```
+npm install
+```
+
+To start a development server:
+
+```
+npm start
+```
+
+
+
+
