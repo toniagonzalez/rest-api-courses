@@ -7,11 +7,13 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: -1
-        },
+        // userId: {
+        //     type: DataTypes.INTEGER,
+        //     references: {
+        //         model: 'User',
+        //         key: 'id'
+        //     }
+        // },
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -29,7 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Course.associate = (models) => {
-        Course.belongsTo(models.User);
+        Course.belongsTo(models.User,
+        {
+            foreignKey: 'userId'
+        });
     };
 
     return Course;

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,
+            autoIncrement: true
         },
         firstName: {
             type: DataTypes.STRING,
@@ -26,7 +26,12 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = (models) => {
-        User.hasMany(models.Course);
+        User.hasMany(models.Course,{
+            as: 'userId',
+            foreignKey: 'userId',
+            sourceKey: 'id',
+        });
+        
     };
 
     return User;

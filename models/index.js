@@ -26,6 +26,9 @@ sequelize
 
     return sequelize.sync();
   })
+  .catch((err)=>{
+    console.log('Unable to connect to the database');
+  })
 
 const models = {};
 
