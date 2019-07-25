@@ -7,6 +7,7 @@ const auth = require('basic-auth');
 const bcryptjs = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 
+
 //Asychronous Function Handler
 function asyncHandler(cb){
     return async (req,res,next) => {
@@ -55,7 +56,6 @@ const authenticateUser = async (req,res,next) => {
 }
     
 
-
 //Welcome Message
 router.get('/', asyncHandler(async (req, res) =>{
     res.json({message: 'Welcome to the Courses REST API!'});
@@ -76,6 +76,7 @@ router.get('/users', asyncHandler(authenticateUser), asyncHandler(async (req, re
         res.json({user});
     })
 }))
+
 
 //POST Add New User POST/api/users
 //INSERT INTO Users (firstName, lastName, emailAddress, password) VALUES(...)
@@ -122,14 +123,18 @@ router.post('/users', [
     }
 }))
 
+
 //GET ALL Courses GET/api/courses
-//SELECT * FROM Courses
+//SELECT id, userId, title, description, estimatedTime, materialsNeeded FROM Courses
 router.get('/courses', asyncHandler(async(req, res)=>{
-    Course.findAll()
+    Course.findAll({
+        attributes: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded']
+    })
     .then( (courses) => {
         res.json({courses});
     })
 }))
+
 
 //GET Course by ID GET/api/courses/:id
 //SELECT id, userId, title, description, estimatedTime, materialsNeeded FROM Courses WHERE id = req.params.id
@@ -140,9 +145,9 @@ router.get('/courses/:id', asyncHandler(async (req, res)=>{
             id: req.params.id
         }
     })
-    .then( (courses) => {
-        if (courses){
-            res.json({courses});
+    .then( (course) => {
+        if (course){
+            res.json({course});
         }
         else {
             res.status(400).end();
@@ -150,6 +155,7 @@ router.get('/courses/:id', asyncHandler(async (req, res)=>{
 
     })
 }))
+
 
 //POST Add new course POST/api/courses
 //INSERT INTO Courses (title, description, estimatedTime, materialsNeeded) VALUES(...)
@@ -179,7 +185,7 @@ router.post('/courses', [
         await Course.create({ ...req.body, userId: currentUser })
         .then( (course) => {
             if (course){
-                res.redirect(`/api/courses/${course.id}`);
+                // res.redirect(`/api/courses/${course.id}`);
                 res.status(201).end();
             } else {
                 next();
@@ -187,6 +193,7 @@ router.post('/courses', [
         })
      }
 }))
+
 
 //UPDATE course PUT/api/courses/:id
 //UPDATE Courses SET ex:(materialsNeeded=materialsNeeded) WHERE id = req.parms.id
@@ -230,6 +237,7 @@ router.put('/courses/:id', [
     }
 }))
 
+
 //DELETE course DELETE/api/courses/id
 //DELETE FROM Courses WHERE id = (req.parms.id)
 router.delete('/courses/:id', asyncHandler(authenticateUser), asyncHandler(async (req, res, next)=>{
@@ -251,5 +259,6 @@ router.delete('/courses/:id', asyncHandler(authenticateUser), asyncHandler(async
          }
     })    
 }))
+
 
 module.exports = router;
