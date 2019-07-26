@@ -115,7 +115,7 @@ router.post('/users', [
         .then( (user) => {
             if (user){
                 res.redirect("/api");
-                res.status(201).end();
+                res.status(201).location('/').end();
             } else {
                 next();
             }
@@ -139,7 +139,7 @@ router.get('/courses', asyncHandler(async(req, res)=>{
 //GET Course by ID GET/api/courses/:id
 //SELECT id, userId, title, description, estimatedTime, materialsNeeded FROM Courses WHERE id = req.params.id
 router.get('/courses/:id', asyncHandler(async (req, res)=>{
-    Course.findAll({
+    Course.findOne({
         attributes: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded'],
         where: {
             id: req.params.id
@@ -147,7 +147,7 @@ router.get('/courses/:id', asyncHandler(async (req, res)=>{
     })
     .then( (course) => {
         if (course){
-            res.json({course});
+            res.json({course});       
         }
         else {
             res.status(400).end();
@@ -185,8 +185,7 @@ router.post('/courses', [
         await Course.create({ ...req.body, userId: currentUser })
         .then( (course) => {
             if (course){
-                // res.redirect(`/api/courses/${course.id}`);
-                res.status(201).end();
+                res.status(201).location(`/api/courses/${course.id}`).end();
             } else {
                 next();
             }
