@@ -51,7 +51,7 @@ const authenticateUser = async (req,res,next) => {
     
     // If user's credentials are unavailable return 400 Bad Request HTTP status code. 
     } else {
-        res.status(400);
+        res.status(400).end();
     }
 }
     
@@ -114,7 +114,6 @@ router.post('/users', [
         await User.create(req.body)
         .then( (user) => {
             if (user){
-                res.redirect("/api");
                 res.status(201).location('/').end();
             } else {
                 next();
