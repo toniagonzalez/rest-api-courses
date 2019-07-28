@@ -21,7 +21,7 @@ function asyncHandler(cb){
 
 
 //Authorization Handler
-const authenticateUser = async (req,res,next) => {
+const authenticateUser = async(req,res,next) => {
     // Parse the user's credentials from the Authorization header.
     const credentials = auth(req);
   
@@ -33,14 +33,14 @@ const authenticateUser = async (req,res,next) => {
                 emailAddress: credentials.name
             }               
         })
-        .then( (user)=> {
+        .then((user)=> {
             // Use the bcryptjs to compare entered password to the user's password
             if (user){
                 const authenticated = bcryptjs.compareSync(credentials.pass, user.password);
                 // If match user object on the stored on request object
                 if (authenticated){
                     req.currentUser = user;
-                    next();
+                    return next();
                 }
                 // Not a match, return 401 Unauthorized HTTP status code.
                 else {
