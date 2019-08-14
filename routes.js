@@ -47,6 +47,9 @@ const authenticateUser = async(req,res,next) => {
                     res.status(401).end();
                 }
             }
+            else {
+                res.status(401).end();
+            }
         })
     
     // If user's credentials are unavailable return 400 Bad Request HTTP status code. 
